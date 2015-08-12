@@ -21,12 +21,12 @@ Current release: 1.3.14
 
 ### Installation with CocoaPods
 
-[CocoaPods](http://cocoapods.org) is a dependency manager for Objective-C, which automates and simplifies the process of using 3rd-party libraries like MMX in your projects. See the ["Getting Started" guide for more information](https://www.magnet.com/developer/ios/getting_started_ios/). If you are already familiar with [CocoaPods](http://cocoapods.org) you can add the line below to your podfile.
+[CocoaPods](http://cocoapods.org) is a dependency manager for Objective-C, which automates and simplifies the process of using 3rd-party libraries like MMX in your projects. See the ["Getting Started" guide for more information](https://docs.magnet.com/developer/ios/getting_started_ios/). If you are already familiar with [CocoaPods](http://cocoapods.org) you can add the line below to your podfile.
 
 #### Podfile
 
 ```ruby
-pod "MMX", "~> 1.3.14"
+pod 'MMX', :git => 'https://github.com/magnetsystems/message-ios.git', :branch => 'friends_of_magnet'
 ```
 
 
