@@ -18,7 +18,7 @@ Pod::Spec.new do |s|
   s.dependency     'Magnet-XMPPFramework', '~> 3.6.10'
   s.dependency     'MDMCoreData', '~> 1.4.0'
   s.dependency     'Mantle', '~>1.4'
-  s.dependency     'CocoaAsyncSocket', '~>7.4.1'
+  s.dependency     'CocoaAsyncSocket', '7.4.1'
   s.dependency     'CocoaLumberjack', '~>1.9'
 
 end
