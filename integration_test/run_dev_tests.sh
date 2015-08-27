@@ -86,6 +86,10 @@ stop_server() {
   eval "$stop_command"
   popd
 }
+# Download the server build using mvn
+mvn_download="mvn clean initialize"
+echo "Downloading server binary"
+eval "$mvn_download"
 
 # bootstrap and start then server
 pushd "$curdir/startserver"
