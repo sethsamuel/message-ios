@@ -1,0 +1,52 @@
+<project xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns="http://maven.apache.org/POM/4.0.0"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+    <modelVersion>4.0.0</modelVersion>
+
+    <groupId>com.magnet.mmx.ios</groupId>
+    <artifactId>ios-integration-test</artifactId>
+    <version>1.6.0-SNAPSHOT</version>
+    <packaging>pom</packaging>
+
+    <name>iOS Integration Test</name>
+    <url>http://maven.apache.org</url>
+    <!-- use this pom to download the mmx-server-->
+    <properties>
+        <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+        <sandbox.dir>${project.basedir}/startserver</sandbox.dir>
+        <version.addon>${project.version}</version.addon>
+    </properties>
+
+    <build>
+        <plugins>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-dependency-plugin</artifactId>
+                <version>2.9</version>
+                <executions>
+                    <execution>
+                        <id>unpack-mmx-server</id>
+                        <phase>initialize</phase>
+                        <goals>
+                            <goal>copy</goal>
+                        </goals>
+                        <configuration>
+                            <artifactItems>
+                                <artifactItem>
+                                    <groupId>com.magnet.mmx</groupId>
+                                    <artifactId>mmx-server</artifactId>
+                                    <version>${version.addon}</version>
+                                    <type>zip</type>
+                                    <overWrite>true</overWrite>
+                                    <outputDirectory>${sandbox.dir}</outputDirectory>
+                                    <destFileName>mmx-server-${version.addon}.zip</destFileName>
+                                    <includes>**/**</includes>
+                                </artifactItem>
+                            </artifactItems>
+                            <includes>**/*.*</includes>
+                        </configuration>
+                    </execution>
+	           </executions>
+            </plugin>
+        </plugins>
+    </build>
+</project>
