@@ -86,6 +86,10 @@ stop_server() {
   eval "$stop_command"
   popd
 }
+
+echo "Cleaning up old stuff"
+rm -rf mmx-server*
+
 # Download the server build using mvn
 mvn_download="mvn clean initialize"
 echo "Downloading server binary"
@@ -101,47 +105,30 @@ fi
 eval "$start_command"
 popd
 
-# Run REST API
-if [ "$EXTERNAL_BUILD_DIR" != "" ]; then
-  echo "Running REST API functional tests for MMX external build..."
-else
-  echo "Running REST API functional tests for MMX local build..."
-fi
+######## TODO: Add stuff for running iOS tests here #####################
 
-# Run REST API tests
-pushd "./restapi"
-./gradlew test
-status=$?
-popd
 
-echo "REST API STATUS: $status"
-if [ "$status" != "0" ]; then
-  echo "FAILURE: REST API TEST FAILED"
-  stop_server
-  exit $status
-fi
-
-if [ "${TESTANDROID}" = "android" ]; then
-  # start Android unit tests
-  echo "Running Android functional tests for MMX local build..."
-
-  # push localhost configuration to emulator
-  genLocalProps ./test-conf/android_local.properties ./test-conf/local.properties
-  if [ -f ./test-conf/local.properties ]; then
-    adb_command="adb push ./test-conf/local.properties /sdcard/mmx-debug.properties"
-  else
-    adb_command="adb push ./test-conf/android_local.properties /sdcard/mmx-debug.properties"
-  fi
-  eval "$adb_command"
-
-  pushd "../android"
-  run_android_test="./gradlew clean build connectedCheck"
-  eval "$run_android_test"
-  status=$?
-  popd
-  adb_command="adb shell rm /sdcard/mmx-debug.properties"
-  eval "$adb_command"
-fi
+#if [ "${TESTANDROID}" = "android" ]; then
+#  # start Android unit tests
+#  echo "Running Android functional tests for MMX local build..."
+#
+#  # push localhost configuration to emulator
+#  genLocalProps ./test-conf/android_local.properties ./test-conf/local.properties
+#  if [ -f ./test-conf/local.properties ]; then
+#    adb_command="adb push ./test-conf/local.properties /sdcard/mmx-debug.properties"
+#  else
+#    adb_command="adb push ./test-conf/android_local.properties /sdcard/mmx-debug.properties"
+#  fi
+#  eval "$adb_command"
+#
+#  pushd "../android"
+#  run_android_test="./gradlew clean build connectedCheck"
+#  eval "$run_android_test"
+#  status=$?
+#  popd
+#  adb_command="adb shell rm /sdcard/mmx-debug.properties"
+#  eval "$adb_command"
+# fi
 
 stop_server;
 exit $status
